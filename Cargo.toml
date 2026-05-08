@@ -65,7 +65,7 @@ vulkan = ["whisper-rs/vulkan"]
 
 [target.'cfg(windows)'.build-dependencies]
 winres = "0.1"
-ico = "0.3"
+ico = "0.5"
 
 [profile.release]
 opt-level = 3
