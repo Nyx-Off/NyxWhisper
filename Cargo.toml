@@ -1,0 +1,74 @@
+[package]
+name = "nyxwhisper"
+version = "0.1.0"
+edition = "2021"
+description = "NyxWhisper — Dictée vocale française locale propulsée par Whisper"
+authors = ["Samy Bensalem"]
+license = "MIT"
+readme = "README.md"
+keywords = ["whisper", "speech-to-text", "dictation", "windows", "egui"]
+categories = ["multimedia::audio", "gui"]
+build = "build.rs"
+
+[[bin]]
+name = "NyxWhisper"
+path = "src/main.rs"
+
+[dependencies]
+# UI
+eframe = { version = "0.28", default-features = false, features = ["default_fonts", "glow", "wayland", "x11"] }
+egui = "0.28"
+
+# Inférence Whisper (whisper.cpp). Le backend GPU est sélectionné via les
+# features Cargo de NyxWhisper :
+#   --features cuda    : NVIDIA (le plus rapide sur RTX, requiert CUDA Toolkit)
+#   --features vulkan  : universel (NVIDIA / AMD / Intel, requiert Vulkan SDK)
+#   (par défaut)       : CPU seulement
+whisper-rs = "0.16"
+
+# Capture audio
+cpal = "0.15"
+
+# Raccourci clavier global
+global-hotkey = "0.6"
+keyboard-types = "0.7"
+
+# Saisie de texte simulée + presse-papiers
+enigo = "0.2"
+arboard = "3"
+
+# System tray + notifications natives Windows
+tray-icon = "0.14"
+notify-rust = "4"
+
+# Config persistante
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+dirs = "5"
+
+# Utilitaires
+anyhow = "1"
+parking_lot = "0.12"
+crossbeam-channel = "0.5"
+log = "0.4"
+env_logger = "0.11"
+ureq = "2"
+raw-window-handle = "0.6"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.48", features = ["Win32_Foundation", "Win32_UI_WindowsAndMessaging"] }
+
+[features]
+default = []
+cuda   = ["whisper-rs/cuda"]
+vulkan = ["whisper-rs/vulkan"]
+
+[target.'cfg(windows)'.build-dependencies]
+winres = "0.1"
+ico = "0.3"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = true

@@ -1,0 +1,21 @@
+* text=auto
+
+*.rs text eol=lf
+*.toml text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.ps1 text eol=crlf
+*.iss text eol=crlf
+
+*.ico binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.exe binary
+*.dll binary
+*.bin binary
+*.gguf binary
+*.wav binary
+

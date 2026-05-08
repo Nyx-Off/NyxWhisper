@@ -1,0 +1,53 @@
+# Rust build output
+/target/
+/target-cpu/
+/target-vulkan/
+
+# Packaged application artifacts
+/dist-cpu/
+/dist-cuda/
+/dist-vulkan/
+/installer/out/
+
+# Whisper models are large runtime downloads
+/models/*
+!/models/.gitkeep
+
+# Generated icon; src/icon.rs is the source of truth
+/assets/icon.ico
+
+# Local logs and debug captures
+*.log
+*.out
+*.err
+nyx-debug.*
+
+# Windows build/runtime files
+*.exe
+*.dll
+*.pdb
+*.ilk
+*.exp
+*.lib
+
+# Audio captures and temporary transcription data
+*.wav
+*.mp3
+*.flac
+*.tmp
+*.temp
+
+# Local editor and OS noise
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+Desktop.ini
+
+# Local env files
+.env
+.env.*
+
+# Scratch files
+test_opts.rs

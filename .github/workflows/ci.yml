@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Windows check
+    runs-on: windows-latest
+
+    env:
+      LIBCLANG_PATH: "C:\\Program Files\\LLVM\\bin"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+
+      - name: Install native dependencies
+        shell: pwsh
+        run: |
+          choco install llvm cmake -y --no-progress
+          "C:\Program Files\LLVM\bin" | Out-File -FilePath $env:GITHUB_PATH -Append
+          "C:\Program Files\CMake\bin" | Out-File -FilePath $env:GITHUB_PATH -Append
+
+      - name: Format
+        run: cargo fmt --check
+
+      - name: Check
+        run: cargo check --bin NyxWhisper
