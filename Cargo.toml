@@ -43,7 +43,7 @@ notify-rust = "4"
 
 # Config persistante
 serde = { version = "1", features = ["derive"] }
-toml = "0.8"
+toml = "1.1"
 dirs = "5"
 
 # Utilitaires
